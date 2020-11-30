@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fuful.dao.admin.AdminCategoryDao">
+    <select id="findCategory" resultType="com.fuful.domain.BookSuperType">
+        select * from tb_superType
+    </select>
+    <select id="findCateGoryByName" resultType="com.fuful.domain.BookSuperType">
+        select * from tb_superType where tname=#{tname}
+    </select>
+
+    <insert id="addCategory">
+        insert into tb_superType(tname,aname,keyword,supdesc) values(#{c.tname},#{c.aname},#{c.keyword},#{c.supdesc})
+    </insert>
+
+    <select id="findSuperTypeById" resultType="com.fuful.domain.BookSuperType">
+        select * from tb_superType where ID=#{id}
+    </select>
+
+    <update id="UpdateSuperType">
+        update tb_superType set tname=#{c.tname},aname=#{c.aname},keyword=#{c.keyword},supdesc=#{c.supdesc} where ID=#{c.ID}
+    </update>
+    <delete id="DeleteSuperType">
+        delete from tb_superType where ID=#{id}
+    </delete>
+</mapper>

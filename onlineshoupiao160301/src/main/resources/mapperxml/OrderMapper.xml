@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fuful.dao.OrderDao">
+
+    <insert id="addOrder" parameterType="com.fuful.domain.Order">
+      insert into tb_order
+      values (#{Order.oid},#{Order.ordertime},#{Order.total},#{Order.state},#{Order.address},#{Order.name},#{Order.telephone},#{Order.user.uid}
+      ,#{Order.send},#{Order.cancel},#{Order.delivery},#{Order.confirmOrder},#{Order.confirmCancel},#{Order.refuse});
+
+    </insert>
+
+    <select id="findAllOrders" resultType="com.fuful.domain.Order">
+        select * from tb_order where uid=#{uid} Order By ordertime Desc
+    </select>
+
+    <select id="findOrderItemByOid" resultType="com.fuful.domain.OrderProductDetail">
+        select i.count,i.subtotal,i.itemid,i.location,i.round,p.picture,p.ticketName,p.price from tb_orderitem i,tb_ticket p where i.pid=p.ID and i.oid=#{oid}
+    </select>
+
+    <update id="UpdateOrderState">
+        update  tb_order set state=1 where oid=#{oid}
+    </update>
+
+    <update id="UpdateOrderAdrr">
+        update  tb_order set address=#{Order.address},name=#{Order.name},telephone=#{Order.telephone} where oid=#{Order.oid}
+    </update>
+
+    <update id="UpdateOrderConfirm">
+        UPDATE tb_order set confirmOrder=1 where oid=#{oid}
+    </update>
+
+    <update id="UpdateOrderCancel">
+          UPDATE tb_order set cancel=1 where oid=#{oid}
+    </update>
+    <select id="findTransportInfo" resultType="com.fuful.domain.Transport">
+        SELECT * from tb_transport where oid=#{oid}
+    </select>
+
+    <select id="findAllSeatlogByItemid" resultType="com.fuful.domain.SeatLog">
+        SELECT * from tb_tempseatlog where itemid=#{itemid}
+    </select>
+
+    <delete id="DeleteOrder">
+        DELETE  from tb_order where oid=#{oid}
+    </delete>
+
+    <update id="UpdateRefuseOrder">
+        UPDATE tb_order set refuse=0 where oid=#{oid}
+    </update>
+
+</mapper>

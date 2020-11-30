@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fuful.dao.VoteDao">
+    <select id="findVoteList" resultType="com.fuful.domain.Vote">
+        select *  from tb_vote  where state=0
+    </select>
+
+    <select id="findVoteByVid" resultType="com.fuful.domain.Vote">
+        select * from tb_vote  where vid=#{vid}
+    </select>
+
+    <select id="findUserVoteLog" resultType="com.fuful.domain.VoteUserlog">
+        select * from tb_voteuserlog where user=#{username} and vid=#{vid}
+    </select>
+
+    <select id="findVoteCount" resultType="com.fuful.domain.VoteCount">
+        select * from tb_votecount where vid=#{vid}
+    </select>
+
+    <update id="updateVoteCount1">
+              update  tb_votecount set  item1=#{newcount} where vid=#{vid}
+    </update>
+
+
+    <update id="updateVoteCount2">
+        update  tb_votecount set  item2=#{newcount} where vid=#{vid}
+    </update>
+
+
+    <update id="updateVoteCount3">
+        update  tb_votecount set  item3=#{newcount} where vid=#{vid}
+    </update>
+
+
+    <update id="updateVoteCount4">
+        update  tb_votecount set  item4=#{newcount} where vid=#{vid}
+    </update>
+
+
+    <update id="updateVoteCount5">
+        update  tb_votecount set  item5=#{newcount} where vid=#{vid}
+    </update>
+
+
+    <update id="updateVoteCount6">
+        update  tb_votecount set  item1=#{newcount} where vid=#{vid}
+    </update>
+
+
+    <update id="updateVoteCount7">
+        update  tb_votecount set  item7=#{newcount} where vid=#{vid}
+    </update>
+
+
+    <update id="updateVoteCount8">
+        update  tb_votecount set  item8=#{newcount} where vid=#{vid}
+    </update>
+
+    <update id="UpdateVoteUserCount">
+         update  tb_vote set usercount=#{newcount} where vid=#{vid}
+    </update>
+
+    <insert id="AddUserHasVote">
+        insert into   tb_voteuserlog  values(#{username},#{vid},1)
+    </insert>
+
+
+</mapper>

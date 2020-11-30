@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fuful.dao.admin.AOrderDao">
+  <select id="findAllOrder" resultType="com.fuful.domain.Order">
+     select * from tb_order
+  </select>
+
+
+    <select id="findOrderInfoByOid" resultType="com.fuful.domain.OrderProductDetail">
+        select i.count,i.subtotal,i.itemid,i.location,i.round,p.picture,p.bookName,p.price from tb_orderitem i,tb_book p where i.pid=p.ID and i.oid=#{oid}
+    </select>
+
+    <delete id="DeleteOrder">
+        delete from tb_order where oid=#{oid}
+    </delete>
+
+    <select id="findAllSearchOrder" resultType="com.fuful.domain.Order">
+        select * from tb_order where name like CONCAT('%',#{keyword},'%') or oid=#{keyword}
+    </select>
+
+    <select id="findSeatLogByItemid" resultType="com.fuful.domain.SeatLog">
+        SELECT * from tb_tempseatlog where itemid=#{itemid}
+    </select>
+
+    <select id="findRoundInfoByRid" resultType="com.fuful.domain.Round">
+        SELECT * from tb_time where id=#{rid}
+    </select>
+
+    <update id="UpdateOrderSend">
+     UPDATE tb_order set send=1 where oid=#{oid}
+    </update>
+
+    <insert id="AddTransInfo">
+        INSERT into tb_transport(oid,transport,transportNum) VALUES (#{oid},#{transport},#{transportNum})
+    </insert>
+
+    <update id="UpdateConfirmCancel">
+        UPDATE tb_order set confirmCancel=1 where oid=#{oid}
+    </update>
+
+    <update id="UpdateRefuseOrder">
+           UPDATE tb_order set refuse=1 where oid=#{oid}
+    </update>
+</mapper>

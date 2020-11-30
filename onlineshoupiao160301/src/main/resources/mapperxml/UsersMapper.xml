@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fuful.dao.UsersDAO">
+    <select id="findByUName" resultType="com.fuful.domain.User">
+        select *
+        from tb_user WHERE username = #{uname,jdbcType=VARCHAR};
+    </select>
+
+    <insert id="addUser" parameterType="com.fuful.domain.User">
+         insert into tb_user
+       values (#{User.uid},#{User.username},#{User.password},#{User.name},#{User.email},#{User.telephone},#{User.birthday},#{User.sex},#{User.state}
+      ,#{User.code},0,0,#{User.address});
+
+    </insert>
+
+    <select id="getstate" resultType="java.lang.Integer">
+        SELECT state from tb_user where username=#{username}
+    </select>
+
+    <update id="updateState">
+        UPDATE tb_user set state=1 where code=#{code}
+    </update>
+
+
+    <select id="findBybackUser" resultType="com.fuful.domain.User">
+       SELECT  * from  tb_user where username=#{username} and `name`=#{nickname} and email=#{email}
+    </select>
+
+    <update id="edituser">
+        UPDATE tb_user set password=#{password} where username=#{username}
+    </update>
+
+</mapper>

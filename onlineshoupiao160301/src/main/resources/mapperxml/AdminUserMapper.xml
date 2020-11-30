@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fuful.dao.admin.AdminUserDao">
+
+    <select id="findUserInfo" resultType="com.fuful.domain.ManageUser">
+        select * from tb_manage where  name=#{uname} and password=#{password}
+    </select>
+
+    <select id="findAllUser" resultType="com.fuful.domain.ManageUser">
+        select *
+        from tb_manage
+    </select>
+
+    <delete id="deleteUser">
+        DELETE FROM tb_manage WHERE ID = #{id}
+    </delete>
+
+    <select id="findAllManageUser" resultType="com.fuful.domain.ManageUser">
+        select * from tb_manage
+    </select>
+
+    <select id="findManagerById" resultType="com.fuful.domain.ManageUser">
+        select * from tb_manage where ID=#{id}
+    </select>
+
+    <update id="UpdateManager">
+        update tb_manage set name=#{p.name},password=#{p.password},category=#{p.category},book=#{p.book},mark=#{p.mark},vote=#{p.vote},`order`=#{p.order},`change`=#{p.change} where ID=#{p.ID}
+    </update>
+
+    <insert id="AddManager">
+        insert into tb_manage values(#{p.ID},#{p.name},#{p.password},#{p.category},#{p.book},#{p.mark},#{p.vote},#{p.order},#{p.change})
+    </insert>
+
+    <delete id="DeleteManager">
+        delete  from tb_manage  where ID=#{id}
+    </delete>
+
+    <select id="findAllUserList" resultType="com.fuful.domain.User">
+        SELECT * from tb_user
+    </select>
+
+    <delete id="DeleteUser">
+        delete  from tb_user  where uid=#{id}
+    </delete>
+
+
+
+
+</mapper>

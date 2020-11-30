@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fuful.dao.admin.AMarkDao">
+   <select id="findAllMark" resultType="com.fuful.domain.Mark">
+       select * from tb_mark
+   </select>
+
+    <delete id="DeleteMark">
+        delete from tb_mark where mid=#{mid}
+    </delete>
+
+    <select id="findSearchAllMark" resultType="com.fuful.domain.Mark">
+        select  * from tb_mark  where uname like CONCAT('%',#{word,jdbcType=VARCHAR},'%')
+    </select>
+</mapper>

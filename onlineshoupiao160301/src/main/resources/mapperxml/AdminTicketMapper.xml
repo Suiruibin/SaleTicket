@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fuful.dao.admin.ATicketDao">
+
+    <select id="findAllTicket" resultType="com.fuful.domain.Ticket">
+        select * from tb_ticket
+    </select>
+
+    <update id="UpdateTicketInfo">
+        update  tb_ticket set typeBID=#{Ticket.typeBID},typeID=#{Ticket.typeID},ticketName=#{Ticket.ticketName},introduce=#{Ticket.introduce},price=#{Ticket.price},nowPrice=#{Ticket.nowPrice},picture=#{Ticket.picture},INTime=#{Ticket.INTime},newTicket=#{Ticket.newTicket},sale=#{Ticket.sale},author=#{Ticket.author},amount=#{Ticket.amount} where ID=#{Ticket.ID}
+    </update>
+
+    <delete id="DeleteTicketInfo">
+        delete from tb_ticket where ID=#{id}
+    </delete>
+    <delete id="DeleteTicketPrice">
+        DELETE  from tb_price where tid=#{tid} and price=#{price}
+    </delete>
+
+    <delete id="DeleteTicketPlace">
+        DELETE from tb_city where tid=#{tid} and city=#{place}
+    </delete>
+
+    <delete id="DeleteRound">
+        DELETE from tb_time where  id=#{id}
+    </delete>
+
+    <insert id="addTicketDao">
+        insert into tb_ticket(typeBID,typeID,ticketName,introduce,price,nowPrice,picture,INTime,newTicket,sale,author,amount) values(
+        #{Ticket.typeBID},#{Ticket.typeID},#{Ticket.ticketName},#{Ticket.introduce},#{Ticket.price},#{Ticket.nowPrice},#{Ticket.picture},
+        #{Ticket.INTime},#{Ticket.newTicket},#{Ticket.sale},#{Ticket.author},#{Ticket.amount})
+
+
+    </insert>
+
+    <select id="findSearchAllTicket" resultType="com.fuful.domain.Ticket">
+        select * from tb_ticket where ticketName like  CONCAT('%',#{keyword,jdbcType=VARCHAR},'%')
+    </select>
+
+
+    <select id="findSearchAllTicketByBID" resultType="com.fuful.domain.Ticket">
+      select * from tb_ticket,tb_superType where  tb_ticket.typeBID=tb_superType.ID  and  tb_superType.tname like CONCAT('%',#{keyword,jdbcType=VARCHAR},'%')
+    </select>
+
+    <select id="getTicketInfoById" resultType="com.fuful.domain.Ticket">
+         SELECT * from tb_ticket where ID=#{id}
+    </select>
+
+    <insert id="AddTicketPrice">
+        insert into tb_price VALUES (#{tid},#{price})
+    </insert>
+
+    <select id="findAllPriceByTid" resultType="com.fuful.domain.Price">
+
+        SELECT * from tb_price where tid=#{tid}
+
+    </select>
+
+    <select id="findAllPlaceByTid" resultType="com.fuful.domain.City">
+
+        SELECT * from tb_city where tid=#{tid}
+
+    </select>
+
+    <select id="findAllRoundByTid" resultType="com.fuful.domain.Round">
+        select * from tb_time where tid=#{tid}
+    </select>
+
+    <insert id="AddTicketPlace">
+        insert into tb_city(tid,city,location,town) VALUES (#{tid},#{city},#{location},#{town})
+    </insert>
+
+    <insert id="AddPlaceTime">
+      INSERT into tb_time(city,round,tid,amount,row,col) VALUES (#{city},#{round},#{tid},#{amount},#{row},#{col})
+    </insert>
+
+</mapper>

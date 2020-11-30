@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fuful.dao.admin.AVoteDao">
+    <select id="findAllVote" resultType="com.fuful.domain.Vote">
+        select *
+        from tb_vote
+    </select>
+
+    <insert id="addVote" >
+        insert into tb_vote values(#{vote.vid},#{vote.vname},#{vote.stime},#{vote.etime},#{vote.item1},#{vote.item2},#{vote.item3},#{vote.item4},
+        #{vote.item5},#{vote.item6},#{vote.item7},#{vote.item8},#{vote.state},#{vote.usercount})
+    </insert>
+
+    <insert id="InsertVoteCount">
+        insert into tb_votecount values(#{v.vid},#{v.item1},#{v.item2},#{v.item3},#{v.item4},#{v.item5},#{v.item6},#{v.item7},#{v.item8})
+    </insert>
+
+    <delete id="deleteVoteByVid">
+          delete from tb_vote where vid=#{vid}
+    </delete>
+
+    <select id="findSearchAllVote" resultType="com.fuful.domain.Vote">
+        select * from tb_vote where vname like CONCAT('%',#{word,jdbcType=VARCHAR},'%')
+    </select>
+
+    <update id="updateVote">
+        update  tb_vote set vname=#{v.vname},stime=#{v.stime},etime=#{v.etime},item1=#{v.item1},item2=#{v.item2},item3=#{v.item3},item4=#{v.item4},item5=#{v.item5},item6=#{v.item6},item7=#{v.item7},item8=#{v.item8},state=#{v.state} where vid=#{v.vid}
+    </update>
+</mapper>
+
